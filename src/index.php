@@ -1,4 +1,5 @@
 <?php
+/* Establishes a connection to the database */
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -6,6 +7,7 @@ $dbname = "dog_show";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+/* If the connection fails, it will display the error message */
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -17,6 +19,7 @@ $sql = "SELECT
 (SELECT COUNT(DISTINCT competition_id) FROM entries WHERE id IS NOT NULL) AS events";
 $result = $conn->query($sql);
 
+/* If the query is successful, it fetches the number of owners, dogs, and events */
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $owners = $row["owners"];
@@ -27,6 +30,7 @@ if ($result->num_rows > 0) {
     $owners = $dogs = $events = 0;
 }
 
+/* Gets the top 10 dogs with the highest average score */
 $sql = "SELECT d.id AS dog_id, d.name AS dog_name, b.name AS breed_name, o.name AS owner_name, o.id AS owner_id, AVG(e.score) AS average_score
 FROM entries e
 JOIN dogs d ON e.dog_id = d.id
@@ -48,8 +52,8 @@ if($result ->num_rows > 0) {
 }
 $conn->close();
 ?>
-
-
+    
+<!-- Front-End begins here -->
 <!DOCTYPE html>
 <head>
     <html lang="en">
@@ -113,17 +117,21 @@ $conn->close();
             <tbody>
                 <?php
                 $position = 1;
+                /* Loops through the top 10 dogs and displays the related owner's information in a table format */
                 foreach($topDogs as $dog) {
                     echo "<tr>";
                     echo "<td>" . $position . "</td>";
                     echo "<td>" . $dog["dog_name"] . "</td>";
                     echo "<td>" . $dog["breed_name"] . "</td>";
+                    /* Encodes the URL to include the owner's ID so it can get passed on to the owner.php page 
+                    It works well because the ID can be replaced and the data will change so there won't be
+                    a billion other pages for every person and it is future proof. This took forever :( */
                     echo "<td><a href='owner.php?id=" . urlencode($dog["owner_id"]) . "'>" . htmlspecialchars($dog["owner_name"]) . "</a></td>";
                     echo "<td>" . number_format($dog["average_score"], 2) . "</td>";
                     echo "</tr>";
                     $position++;
                 }
-                ?>
+                ?>  
             </tbody>
         </table>
     </div>

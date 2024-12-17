@@ -19,6 +19,7 @@ if ($stmt === false) {
     die("Error preparing statement: " . $conn->error);
 }
 
+/* Binds the parameter to the SQL query */
 $stmt->bind_param("i", $owner_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -32,6 +33,7 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
+<!-- Front-End begins here -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,9 +50,11 @@ $conn->close();
     <link rel="stylesheet" href="./css/styles.css">
     <body style="background-color: #eef6ef;">
         <div class="box" style="top: 50vh;">   
+            <!-- Checks if owner is valid if not then it will display that it's not -->
             <?php if ($owner): ?>
                 <h1><?php echo $owner['name']; ?></h1>
                 <p><strong>Phone:</strong> <?php echo $owner['phone']; ?></p>
+                <!-- mailto literally just makes it open the default email app -->
                 <p><strong>Email:</strong> <a href="mailto:<?php echo htmlspecialchars($owner['email']); ?>"><?php echo htmlspecialchars($owner['email']); ?></a></p>            
             <?php else: ?>
                 <p>Owner not found</p>
