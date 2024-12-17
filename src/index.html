@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poppleton Dog Show</title>
+<style>
+    :root {
+        --main-bg-color: black;
+        --text-color: white;
+        --header-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        --box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        color: var(--text-color);
+        overflow-x: hidden;
+    }
+
+    .imageContainer {
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .image-container__header {
+        text-align: center;
+        position: relative;
+
+        z-index: 1;
+        text-shadow: var(--header-shadow);
+    }
+
+    .image-container__header h1 {
+        font-size: 5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .imageContainer img{
+        /*Brightness is a lil down to make the header more readable*/
+        filter: brightness(50%);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .table {
+        width: 50%;
+        padding-top: 25px;
+    }
+
+    .box {
+        width: 100vh;
+        top: 130vh;
+        left: 50%;
+
+        background-color: #fff;
+        border-radius: 10px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        box-shadow: var(--box-shadow);
+        z-index: 1; /* Ensure the box is above the image */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 50px;
+    }
+
+</style>
+<body>
+    <!-- Main Image Banner Section -->
+    <main>
+        <section class="imageContainer">
+            <header class="image-container__header">
+                <h2>WELCOME TO THE</h2>
+                <h1>Poppleton Dog Show</h1>
+            </header>
+            <img src="../assets/show.webp" alt="Dog Show">
+        </section>
+        <section class="box">
+
+        </section>
+
+    </main>
+
+    <div style="background-color: white; width: 100%; height: 1200px">
+    </div>
+</body>
+</html>
