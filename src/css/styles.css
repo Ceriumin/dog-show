@@ -1,5 +1,7 @@
 /* The CSS Styling is a bit of a mess I understand, I usually do this in any front-end project I work on. I will clean it up in the future. 
-For purposes of the project, the styling is a little messy but it's better than having it as a style prop and making it look unclean */
+For purposes of the project, the styling is a little messy but it's better than having it as a style prop and making it look unclean, this might
+also cause issues with other devices and other aspect ratios, but it works and styling isn't important, so if you're having issues on your device
+please, I apologise */
 
 :root {
     --main-bg-color: black;
