@@ -55,7 +55,7 @@ td {
 }
 
 .imageContainer img{
-    /*Brightness is a lil down to make the header more readable over the image*/
+    /*Brightness is a lil down to make the header more readable over the image */
     filter: brightness(50%);
     width: 100%;
     height: 100%;

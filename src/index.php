@@ -1,5 +1,5 @@
 <?php
-/* Establishes a connection to the database */
+// Establishes a connection to the database
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -7,19 +7,19 @@ $dbname = "dog_show";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-/* If the connection fails, it will display the error message */
+// If the connection fails, it will display the error message
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-/* Get the total number of owners, dogs, and amount of events hosted */
+// Get the total number of owners, dogs, and amount of events hosted
 $sql = "SELECT 
 (SELECT COUNT(DISTINCT owner_id) FROM dogs WHERE owner_id IS NOT NULL) AS owners, 
 (SELECT COUNT(DISTINCT dog_id) FROM entries WHERE dog_id IS NOT NULL) AS dogs, 
 (SELECT COUNT(DISTINCT competition_id) FROM entries WHERE id IS NOT NULL) AS events";
 $result = $conn->query($sql);
 
-/* If the query is successful, it fetches the number of owners, dogs, and events */
+// If the query is successful, it fetches the number of owners, dogs, and events
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $owners = $row["owners"];
@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
     $owners = $dogs = $events = 0;
 }
 
-/* Gets the top 10 dogs with the highest average score */
+// Gets the top 10 dogs with the highest average score 
 $sql = "SELECT d.id AS dog_id, d.name AS dog_name, b.name AS breed_name, o.name AS owner_name, o.id AS owner_id, AVG(e.score) AS average_score
 FROM entries e
 JOIN dogs d ON e.dog_id = d.id
@@ -76,7 +76,8 @@ $conn->close();
             <h3>WE LOOK FORWARD TO SEEING YOU NEXT YEAR!</h3>
             <h1>This year <?php echo $owners; ?> owners entered<br><?php echo $dogs; ?> dogs in <?php echo $events; ?> events!</h1>
             <p>
-                This year, we saw an incredible turnout at the Poppleton Paws Dog Show, where <?php echo $owners; ?> participants
+                <!-- Optional Description, not really necessary -->
+                This year, we saw an incredible turnout at the Poppleton Paws Dog Show, where <?php echo $owners; ?> participants 
                 brought their 4-legged friends to compete in exciting competitions. We ran a total of <?php echo $events; ?>
                 events throughout the year, with competition being very fierce. Every participant showcasing their unique
                 talents and incredible abilities, from events such as <em>Agility courses</em> to events like 
@@ -92,7 +93,8 @@ $conn->close();
             </p>
             <div class="box__footer">
                 <p>ASK US A QUESTION</p>
-                <p><a href="mailto:dogshow@poppleton.co.uk">dogshow@poppleton.co.uk</a></p>            
+                <!-- The mail doesn't lead to anything, I made it up, or maybe it does -->
+                <p><a href="mailto:dogshow@poppleton.co.uk">dogshow@poppleton.co.uk</a></p>       
             </div>
         </div>
     </main>
@@ -116,8 +118,8 @@ $conn->close();
             </thead>
             <tbody>
                 <?php
-                $position = 1;
-                /* Loops through the top 10 dogs and displays the related owner's information in a table format */
+                $position = 1; // Initializes the position to 1, as instead it would start from 0
+                // Loops through the top 10 dogs and displays the related owner's information in a table format
                 foreach($top as $item) {
                     echo "<tr>";
                     echo "<td>" . $position . "</td>";
@@ -126,7 +128,7 @@ $conn->close();
                     /* Encodes the URL to include the owner's ID so it can get passed on to the owner.php page 
                     It works well because the ID can be replaced and the data will change so there won't be
                     a billion other pages for every person, and it is future-proof. This took forever :( */
-                    echo "<td><a href='owner.php?id=" . urlencode($item["owner_id"]) . "'>" . htmlspecialchars($item["owner_name"]) . "</a></td>";
+                    echo "<td><a href='owner.php?id=" . urlencode($item["owner_id"]) . "'>" . htmlspecialchars($item["owner_name"]) . "</a></td>"; // Echoing the rows instead of hardcoding them solved the issue
                     echo "<td>" . number_format($item["average_score"], 2) . "</td>";
                     echo "</tr>";
                     $position++;

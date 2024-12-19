@@ -1,4 +1,5 @@
 <?php
+/* Establishes a connection to the database */
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -6,6 +7,7 @@ $dbname = "dog_show";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// If the connection fails, it will display the error message
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -21,7 +23,7 @@ if ($stmt === false) {
     die("Error preparing statement: " . $conn->error);
 }
 
-/* Binds the parameter to the SQL query */
+// Binds the parameter to the SQL query
 $stmt->bind_param("i", $owner_id);
 $stmt->execute();
 $result = $stmt->get_result();
