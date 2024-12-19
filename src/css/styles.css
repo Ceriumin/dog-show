@@ -1,3 +1,6 @@
+/* The CSS Styling is a bit of a mess I understand, I usually do this in any front-end project I work on. I will clean it up in the future. 
+For purposes of the project, the styling is a little messy but it's better than having it as a style prop and making it look unclean */
+
 :root {
     --main-bg-color: black;
     --text-color: white;
@@ -52,7 +55,7 @@ td {
 }
 
 .imageContainer img{
-    /*Brightness is a lil down to make the header more readable*/
+    /*Brightness is a lil down to make the header more readable over the image*/
     filter: brightness(50%);
     width: 100%;
     height: 100%;
@@ -78,6 +81,11 @@ td {
     align-items: center;
 }
 
+.banner h1 {
+    color: #0b3a2e; 
+    font-size: 3rem;
+}
+
 .box {
     width: 100vh;
     left: 50%;
@@ -91,7 +99,7 @@ td {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center; /* Center the text */
+    text-align: center;
     padding-top: 50px;
 }
 

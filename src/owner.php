@@ -10,11 +10,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Getter for the owner id from the URL that's passed and runs it through the SQL query
 $owner_id = isset($_GET['id']) ? $_GET['id'] : '';
 
 $sql = "SELECT name, phone, email FROM owners WHERE id = ?;";
 $stmt = $conn->prepare($sql);
 
+// Some validation to check if the statement is false, shouldn't happen but just in case
 if ($stmt === false) {
     die("Error preparing statement: " . $conn->error);
 }
@@ -40,6 +42,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
+        <!-- Checks if the owner is valid or exists -->
         <?php if ($owner):
             echo $owner['name']; 
         ?>

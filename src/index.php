@@ -101,7 +101,7 @@ $conn->close();
     <div style="background-color: #eef6ef; width: 100%; height: 1000px"></div> 
     <div class="container">
         <section class ="banner">
-            <h1 style="color: #0b3a2e; font-size: 3rem;">2024 Leaderboard</h1>
+            <h1>2024 Leaderboard</h1>
         </section>
         <h1 style="color: #0b3a2e; margin-top: 100px;">Our Top 10 Winners</h1>
         <table class="table">
