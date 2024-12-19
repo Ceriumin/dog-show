@@ -42,21 +42,21 @@ ORDER BY average_score DESC
 LIMIT 10;";
 
 $result = $conn->query($sql);
-$topDogs = [];
+$top = [];
 if($result ->num_rows > 0) {
     while($row = $result -> fetch_assoc()) {
-        $topDogs[] = $row;
+        $top[] = $row;
     }
 } else {
-    $topDogs = $events = 0;
+    $top = $events = 0;
 }
 $conn->close();
 ?>
     
 <!-- Front-End begins here -->
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <html lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poppleton Dog Show</title>
@@ -118,16 +118,16 @@ $conn->close();
                 <?php
                 $position = 1;
                 /* Loops through the top 10 dogs and displays the related owner's information in a table format */
-                foreach($topDogs as $dog) {
+                foreach($top as $item) {
                     echo "<tr>";
                     echo "<td>" . $position . "</td>";
-                    echo "<td>" . $dog["dog_name"] . "</td>";
-                    echo "<td>" . $dog["breed_name"] . "</td>";
+                    echo "<td>" . $item["dog_name"] . "</td>";
+                    echo "<td>" . $item["breed_name"] . "</td>";
                     /* Encodes the URL to include the owner's ID so it can get passed on to the owner.php page 
                     It works well because the ID can be replaced and the data will change so there won't be
-                    a billion other pages for every person and it is future proof. This took forever :( */
-                    echo "<td><a href='owner.php?id=" . urlencode($dog["owner_id"]) . "'>" . htmlspecialchars($dog["owner_name"]) . "</a></td>";
-                    echo "<td>" . number_format($dog["average_score"], 2) . "</td>";
+                    a billion other pages for every person, and it is future-proof. This took forever :( */
+                    echo "<td><a href='owner.php?id=" . urlencode($item["owner_id"]) . "'>" . htmlspecialchars($item["owner_name"]) . "</a></td>";
+                    echo "<td>" . number_format($item["average_score"], 2) . "</td>";
                     echo "</tr>";
                     $position++;
                 }
@@ -136,4 +136,3 @@ $conn->close();
         </table>
     </div>
 </body>
-</html>
