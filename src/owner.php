@@ -1,11 +1,11 @@
 <?php
 /* Establishes a connection to the database */
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "dog_show";
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'dog_show');
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 // If the connection fails, it will display the error message
 if ($conn->connect_error) {
@@ -40,31 +40,31 @@ $conn->close();
 <!-- Front-End begins here -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <!-- Checks if the owner is valid or exists -->
-        <?php if ($owner):
-            echo $owner['name']; 
-        ?>
-        <?php else: ?>
-            Owner not found
-        <?php endif; ?>
-    </title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <body style="background-color: #eef6ef;">
-        <div class="box" style="top: 50vh;">   
-            <!-- Checks if owner is valid if not then it will display that it's not -->
-            <?php if ($owner): ?>
-                <h1><?php echo $owner['name']; ?></h1>
-                <p><strong>Phone:</strong> <?php echo $owner['phone']; ?></p>
-                <!-- mailto literally just makes it open the default email app -->
-                <p><strong>Email:</strong> <a href="mailto:<?php echo htmlspecialchars($owner['email']); ?>"><?php echo htmlspecialchars($owner['email']); ?></a></p>            
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            <!-- Checks if the owner is valid or exists -->
+            <?php if ($owner):
+                echo $owner['name']; 
+            ?>
             <?php else: ?>
-                <p>Owner not found</p>
+                Owner not found
             <?php endif; ?>
-        </div>
-    </body>
-</head>
+        </title>
+        <link rel="stylesheet" href="./css/styles.css">
+        <body style="background-color: #eef6ef;">
+            <div class="box" style="top: 50vh;">   
+                <!-- Checks if owner is valid if not then it will display that it's not -->
+                <?php if ($owner): ?>
+                    <h1><?php echo $owner['name']; ?></h1>
+                    <p><strong>Phone:</strong> <?php echo $owner['phone']; ?></p>
+                    <!-- mailto literally just makes it open the default email app -->
+                    <p><strong>Email:</strong> <a href="mailto:<?php echo htmlspecialchars($owner['email']); ?>"><?php echo htmlspecialchars($owner['email']); ?></a></p>            
+                <?php else: ?>
+                    <p>Owner not found</p>
+                <?php endif; ?>
+            </div>
+        </body>
+    </head>
 </html>
